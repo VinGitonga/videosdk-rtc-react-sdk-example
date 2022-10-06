@@ -133,7 +133,8 @@ export function JoiningScreen({
                 alignItems: "center",
                 backgroundColor: theme.palette.background.default,
                 padding: padding,
-            }}>
+            }}
+        >
             {readyToJoin ? (
                 <Box
                     position="absolute"
@@ -141,11 +142,13 @@ export function JoiningScreen({
                         top: theme.spacing(2),
                         right: 0,
                         left: theme.spacing(2),
-                    }}>
+                    }}
+                >
                     <IconButton
                         onClick={() => {
                             setReadyToJoin(false);
-                        }}>
+                        }}
+                    >
                         <ArrowBack />
                     </IconButton>
                 </Box>
@@ -161,7 +164,8 @@ export function JoiningScreen({
                     flex: 1,
                     alignItems: "center",
                     justifyContent: "center",
-                }}>
+                }}
+            >
                 {readyToJoin ? (
                     <Box
                         m={6}
@@ -173,7 +177,8 @@ export function JoiningScreen({
                             alignItems: "center",
                             justifyContent: "center",
                             padding: padding,
-                        }}>
+                        }}
+                    >
                         <Box className={styles.previewBox}>
                             <video
                                 autoplay
@@ -195,8 +200,11 @@ export function JoiningScreen({
                                         justifyContent: "center",
                                         right: 0,
                                         left: 0,
-                                    }}>
-                                    <Typography>Camera is Turned Off</Typography>
+                                    }}
+                                >
+                                    <Typography>
+                                        Camera is Turned Off
+                                    </Typography>
                                 </Box>
                             ) : null}
 
@@ -204,51 +212,75 @@ export function JoiningScreen({
                                 position="absolute"
                                 bottom={theme.spacing(2)}
                                 left="0"
-                                right="0">
+                                right="0"
+                            >
                                 <Grid
                                     container
                                     alignItems="center"
                                     justify="center"
-                                    spacing={2}>
+                                    spacing={2}
+                                >
                                     <Grid item>
                                         <Tooltip
-                                            title={micOn ? "Turn off mic" : "Turn on mic"}
+                                            title={
+                                                micOn
+                                                    ? "Turn off mic"
+                                                    : "Turn on mic"
+                                            }
                                             arrow
-                                            placement="top">
+                                            placement="top"
+                                        >
                                             <Button
-                                                onClick={() => _handleToggleMic()}
+                                                onClick={() =>
+                                                    _handleToggleMic()
+                                                }
                                                 variant="contained"
                                                 style={
                                                     micOn
                                                         ? {}
                                                         : {
-                                                            backgroundColor: red[500],
-                                                            color: "white",
-                                                        }
+                                                              backgroundColor:
+                                                                  red[500],
+                                                              color: "white",
+                                                          }
                                                 }
-                                                className={styles.toggleButton}>
+                                                className={styles.toggleButton}
+                                            >
                                                 {micOn ? <Mic /> : <MicOff />}
                                             </Button>
                                         </Tooltip>
                                     </Grid>
                                     <Grid item>
                                         <Tooltip
-                                            title={webcamOn ? "Turn off camera" : "Turn on camera"}
+                                            title={
+                                                webcamOn
+                                                    ? "Turn off camera"
+                                                    : "Turn on camera"
+                                            }
                                             arrow
-                                            placement="top">
+                                            placement="top"
+                                        >
                                             <Button
-                                                onClick={() => _handleToggleWebcam()}
+                                                onClick={() =>
+                                                    _handleToggleWebcam()
+                                                }
                                                 variant="contained"
                                                 style={
                                                     webcamOn
                                                         ? {}
                                                         : {
-                                                            backgroundColor: red[500],
-                                                            color: "white",
-                                                        }
+                                                              backgroundColor:
+                                                                  red[500],
+                                                              color: "white",
+                                                          }
                                                 }
-                                                className={styles.toggleButton}>
-                                                {webcamOn ? <Videocam /> : <VideocamOff />}
+                                                className={styles.toggleButton}
+                                            >
+                                                {webcamOn ? (
+                                                    <Videocam />
+                                                ) : (
+                                                    <VideocamOff />
+                                                )}
                                             </Button>
                                         </Tooltip>
                                     </Grid>
@@ -281,7 +313,9 @@ export function JoiningScreen({
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <Button
-                                            disabled={participantName.length < 3}
+                                            disabled={
+                                                participantName.length < 3
+                                            }
                                             color="primary"
                                             variant="contained"
                                             onClick={(e) => {
@@ -291,7 +325,8 @@ export function JoiningScreen({
                                                 }
                                                 onClickStartMeeting();
                                             }}
-                                            id={"btnJoin"}>
+                                            id={"btnJoin"}
+                                        >
                                             Start
                                         </Button>
                                     </InputAdornment>
@@ -303,7 +338,10 @@ export function JoiningScreen({
                     <MeetingDetailsScreen
                         onClickJoin={async (id) => {
                             const token = await getToken();
-                            const valid = await validateMeeting({ meetingId: id, token });
+                            const valid = await validateMeeting({
+                                meetingId: id,
+                                token,
+                            });
                             if (valid) {
                                 setReadyToJoin(true);
                                 setToken(token);
@@ -314,7 +352,8 @@ export function JoiningScreen({
                         }}
                         onClickCreateMeeting={async () => {
                             const token = await getToken();
-                            const _meetingId = await createMeeting({ token });
+                            const { meetingId: _meetingId } =
+                                await createMeeting({ token });
                             setToken(token);
                             setMeetingId(_meetingId);
                             setReadyToJoin(true);
